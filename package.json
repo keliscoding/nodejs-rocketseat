@@ -1,0 +1,11 @@
+{
+  "name": "fundamentos-nodejs-rocketseat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:zam0k/fundamentos-nodejs-rocketseat.git",
+  "author": "Kelly Castelo <kawokkun@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
