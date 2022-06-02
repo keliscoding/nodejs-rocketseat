@@ -1,4 +1,5 @@
 const express = require('express');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
@@ -6,21 +7,29 @@ app.use(express.json());
 
 const PORT = 3000;
 
-/*
-    GET - BUSCAR INFORMAÇÕES DENTRO DO SERVIDOR
-    POST - INSERIR UMA INFORMAÇÃO NO SERVIDOR
-    PUT - ALTERAR UMA INFORMAÇÃO NO SERVIDOR
-    PATCH - ALTERAR UMA INFORMAÇÃO ESPECÍFICA NO SERVIDOR
-    DELETE - DELETAR UMA INFORMAÇÃO NO SERVIDOR
-*/
+const customers = []
 
 /*
-    TIPOS DE PARÂMETROS
-
-    ROUTE PARAMS => IDENTIFICAR UM RECURSO, EDITAR OU DELETAR ESSE RECURSO
-    QUERY PARAMS => PAGINAÇÃO / FILTRO
-    BODY PARAMS => OBJETOS DE INSERÇÃO / ALTERAÇÃO
+    cpf - string
+    name - string
+    id - uuid
+    statement []
 */
+
+
+app.post("/account", (request, response) => {
+    const {cpf, name } = request.body;
+    const id = uuidv4();
+
+    customers.push({
+        cpf,
+        name, 
+        id,
+        statement: []
+    })
+
+    return response.status(201).send();
+})
 
 app.listen(PORT, () => {
     console.log('Server is up!');
