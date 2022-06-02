@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.json());
+
 const PORT = 3000;
 
 /*
@@ -11,6 +13,15 @@ const PORT = 3000;
     PATCH - ALTERAR UMA INFORMAÇÃO ESPECÍFICA NO SERVIDOR
     DELETE - DELETAR UMA INFORMAÇÃO NO SERVIDOR
 */
+
+/*
+    TIPOS DE PARÂMETROS
+
+    ROUTE PARAMS => IDENTIFICAR UM RECURSO, EDITAR OU DELETAR ESSE RECURSO
+    QUERY PARAMS => PAGINAÇÃO / FILTRO
+    BODY PARAMS => OBJETOS DE INSERÇÃO / ALTERAÇÃO
+*/
+
 
 const cursos = [
     "Curso 1",
