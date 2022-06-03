@@ -10,6 +10,23 @@ const PORT = 3000;
 
 const customers = []
 
+//Middleware
+function verifyIfExistsAccountCPF(request, response, next) {
+    const { cpf } = req.headers;
+    
+    const customer = customers.find((customer)=> customer.cpf === cpf);
+
+    if(!customer){
+        return res.status(400).send({error: "customer not found"})
+    }
+
+    //todos que chamarem o middleware vão ter acesso ao customer
+    request.customer = customer;
+
+    return next();
+}
+
+
 /*
     cpf - string
     name - string
@@ -41,15 +58,10 @@ app.post("/statement", (req, res) => {
     
 });
 
-app.get("/statement", (req, res) => {
-    const { cpf } = req.headers;
-    
-    const customer = customers.find((customer)=> customer.cpf === cpf);
+//app.use(verifyIfExistsAccountCPF);
 
-    if(!customer){
-        return res.status(400).send({error: "customer not found"})
-    }
-
+app.get("/statement", verifyIfExistsAccountCPF, (req, res) => {
+    const {customer} = req;
     return res.json(customer.statement);
 });
 
