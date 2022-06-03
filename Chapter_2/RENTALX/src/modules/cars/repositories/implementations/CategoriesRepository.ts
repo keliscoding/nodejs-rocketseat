@@ -1,5 +1,5 @@
-import Category from "../model/Category";
-import { ICreateCategoryDTO } from "./ICategoriesRepository";
+import Category from "../../model/Category";
+import { ICreateCategoryDTO } from "../ICategoriesRepository";
 
 // singleton => criar apenas uma instancia de uma classe, que será uma instancia global
 // deve-se verificar se ela deve ser um singleton ou se ela precisa de mais de uma instancia
