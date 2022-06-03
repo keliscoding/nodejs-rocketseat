@@ -1,14 +1,15 @@
 import { v4 as uuid } from 'uuid';
-interface Specifications {
+
+interface Specification {
     id?: string,
     name: string,
     description: string,
     created_at: Date
 }
 
-class Specifications {
+class Specification {
 
-    constructor({ name, description, created_at }: Specifications) {
+    constructor({ name, description, created_at }: Specification) {
         if (!this.id) {
             this.id = uuid();
         }
@@ -18,4 +19,4 @@ class Specifications {
     }
 }
 
-export default Specifications;
+export default Specification;
