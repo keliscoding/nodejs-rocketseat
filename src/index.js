@@ -41,12 +41,16 @@ app.post("/statement", (req, res) => {
     
 });
 
-app.get("/statement/:cpf", (req, res) => {
-    const cpf = req.params;
+app.get("/statement", (req, res) => {
+    const { cpf } = req.headers;
     
-    const customer = customers.find(cpf => customer.cpf === cpf);
+    const customer = customers.find((customer)=> customer.cpf === cpf);
 
-    return response.json(customer.statement);
+    if(!customer){
+        return res.status(400).send({error: "customer not found"})
+    }
+
+    return res.json(customer.statement);
 });
 
 app.listen(PORT, () => {
