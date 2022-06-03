@@ -7,7 +7,7 @@ interface IRequest {
     name: string;
     description: string;
 }
-class CreateSpecidicationService {
+class CreateSpecificationUseCase {
     private specificationRepository: ISpecificationRepository;
 
     constructor(specificationsRepository: ISpecificationRepository) {
@@ -28,4 +28,4 @@ class CreateSpecidicationService {
     }
 }
 
-export { CreateSpecidicationService };
+export { CreateSpecificationUseCase };
