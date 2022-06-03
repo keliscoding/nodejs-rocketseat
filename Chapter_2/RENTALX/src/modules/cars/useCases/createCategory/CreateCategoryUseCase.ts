@@ -1,4 +1,4 @@
-import { ICategoriesRepository } from '../../repositories/ICategories.Repository';
+import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 
 interface IRequest {
     name: string;
@@ -12,10 +12,13 @@ interface IRequest {
 */
 
 
+//Todo UseCase só vai ter um controller
+
 //Service não deve conhecer o tipo de repositório, service é alto nível
 //Principio de inversão de dependencia
-//
-class CreateCategoryService {
+
+//O service aqui foi transformado em UseCase para manter uma nomeclatura
+class CreateCategoryUseCase {
     private categoriesRepository: ICategoriesRepository;
 
     constructor(categoriesRepository: ICategoriesRepository) {
@@ -32,4 +35,4 @@ class CreateCategoryService {
     }
 }
 
-export { CreateCategoryService };
+export { CreateCategoryUseCase };
