@@ -1,11 +1,5 @@
 import Category from "../model/Category";
-
-//DTO => Data transfer object, pegam o valor da rota e entregam ao repositório
-
-interface ICreateCategoryDTO {
-    name: string;
-    description: string;
-}
+import { ICreateCategoryDTO } from "./ICategories.Repository";
 
 export default class CategoriesRepository {
     private categories: Category[];
@@ -29,9 +23,6 @@ export default class CategoriesRepository {
     }
 
     findByName(name: string): Category {
-        const category = this.categories.find(
-            (category) => category.name === name
-        );
-        return category;
+        return this.categories.find((category) => category.name === name);
     }
 }

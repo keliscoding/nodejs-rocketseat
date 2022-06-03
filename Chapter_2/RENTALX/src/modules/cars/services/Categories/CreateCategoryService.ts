@@ -1,4 +1,4 @@
-import CategoriesRepository from '../../repositories/Categories.Repository';
+import { ICategoriesRepository } from '../../repositories/ICategories.Repository';
 
 interface IRequest {
     name: string;
@@ -16,9 +16,9 @@ interface IRequest {
 //Principio de inversão de dependencia
 //
 class CreateCategoryService {
-    private categoriesRepository: CategoriesRepository;
+    private categoriesRepository: ICategoriesRepository;
 
-    constructor(categoriesRepository: CategoriesRepository) {
+    constructor(categoriesRepository: ICategoriesRepository) {
         this.categoriesRepository = categoriesRepository;
     }
     execute({description, name}: IRequest): void {

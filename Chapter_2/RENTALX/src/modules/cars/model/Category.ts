@@ -10,15 +10,14 @@ interface Category {
 
 class Category {
 
-    constructor({name, description}: Category){
-        if(!this.id){
+    constructor({ name, description }: Category) {
+        if (!this.id) {
             this.id = uuid();
-        }        
+        }
         this.name = name;
-        this.description = description
+        this.description = description;
         this.created_at = new Date();
     }
-
 }
 
 export default Category;
