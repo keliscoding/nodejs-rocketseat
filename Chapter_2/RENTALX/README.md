@@ -46,14 +46,14 @@
 - [] O Usuário deve conseguir inserir uma nove senha.
 
 
-## :white_check_mark: Requisitos não Funcionais
+## Requisitos não Funcionais
 
 
 ### Cadastro de Imagens do Carro
 - [] Utilizar o multer para upload dos arquivos.
 
 
-## :white_check_mark: Regra de Negócio
+## Regra de Negócio
 
 ### Cadastro de Carro
 - [] Não deve ser possível cadastrar um carro com uma placa já existente.
