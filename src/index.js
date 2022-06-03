@@ -132,6 +132,12 @@ app.put("/account", verifyIfExistsAccountCPF, (request, response) => {
     return response.status(201).send();
 })
 
+app.get("/account", verifyIfExistsAccountCPF, (request, response) => {
+    const {customer} = request;
+
+    return response.json(customer);
+})
+
 
 app.listen(PORT, () => {
     console.log('Server is up!');
