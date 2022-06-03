@@ -7,6 +7,6 @@ const app = express();
 app.use(express.json());
 
 app.use("/categories", categoriesRoutes);
-app.use("/specification", specificationRoutes);
+app.use("/specifications", specificationRoutes);
 
 app.listen(3000, () => console.log("Server is running!"));
