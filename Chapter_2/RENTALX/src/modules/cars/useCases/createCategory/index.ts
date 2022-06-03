@@ -4,7 +4,7 @@ import { CreateCategoryController } from "./CreateCategoryController";
 
 //todas as instancias serão feitas aqui
 
-const categoriesRepository = new CategoriesRepository();
+const categoriesRepository = CategoriesRepository.getInstance();
 
 const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
 
