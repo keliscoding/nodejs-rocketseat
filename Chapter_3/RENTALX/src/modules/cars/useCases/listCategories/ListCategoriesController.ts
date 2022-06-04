@@ -10,7 +10,7 @@ class ListCategoriesController {
 
     handle(request: Request, response: Response): Response {
         const all = this.listCategoriesUseCase.execute();
-
+        console.log('reload funcionando');
         return response.json(all);
     }
 }
