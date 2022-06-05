@@ -1,12 +1,13 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../../dataSource";
+
 import Category from "../../entities/Category";
-import { ICreateCategoryDTO } from "../ICategoriesRepository";
+import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
 
 // singleton => criar apenas uma instancia de uma classe, que será uma instancia global
 // deve-se verificar se ela deve ser um singleton ou se ela precisa de mais de uma instancia
 
-export default class CategoriesRepository {
+export default class CategoriesRepository implements ICategoriesRepository {
     private repository: Repository<Category>;
 
     //singleton
