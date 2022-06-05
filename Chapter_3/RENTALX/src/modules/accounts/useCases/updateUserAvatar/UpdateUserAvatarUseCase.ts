@@ -6,6 +6,7 @@
 //Criar controller
 
 import { inject, injectable } from 'tsyringe';
+import { deleteFile } from '../../../../utils/file';
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
 
@@ -28,6 +29,10 @@ class UpdateUserAvatarUseCase {
 
     async execute({ avatar_file, user_id }: IRequest) {
         const user = await this.repository.findUserById(user_id);
+
+        if(user.avatar){
+            await deleteFile(`./temp/avatar/${user.avatar}`);
+        }
 
         user.avatar = avatar_file;
 
