@@ -1,11 +1,11 @@
 import { Router } from "express";
-import CategoriesRepository from "../modules/cars/repositories/implementations/CategoriesRepository";
-import { createCategoryController } from "../modules/cars/useCases/createCategory";
+// import CategoriesRepository from "../modules/cars/repositories/implementations/CategoriesRepository";
+import  createCategoryController  from "../modules/cars/useCases/createCategory";
 import {  } from "../modules/cars/useCases/createCategory/CreateCategoryUseCase";
 import multer from "multer";
 
-import { listCategoriesController } from "../modules/cars/useCases/listCategories";
-import { importCategoryController } from "../modules/cars/useCases/importCategory";
+import listCategoriesController from "../modules/cars/useCases/listCategories";
+import  importCategoryController  from "../modules/cars/useCases/importCategory";
 
 const categoriesRoutes = Router();
 
@@ -19,17 +19,17 @@ const upload = multer({
 });
 
 categoriesRoutes.post("/", (request, response) => {
-    return createCategoryController.handle(request, response);
+    return createCategoryController().handle(request, response);
 });
 
 categoriesRoutes.get("/", (request, response) => {
-    return listCategoriesController.handle(request, response);
+    return listCategoriesController().handle(request, response);
 })
 
 // no imsonia, tem que colocar "multipart form" pra fazer o upload
 
 categoriesRoutes.post("/import", upload.single("file"), (request, response) => {
-    return importCategoryController.handle(request, response);
+    return importCategoryController().handle(request, response);
 })
 
 
