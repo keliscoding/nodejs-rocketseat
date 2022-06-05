@@ -12,7 +12,7 @@ services:
             - POSTGRES_DB=rentx
         volumes:
             - pgdata:/data/postgres
-        network_mode: host
+        network_mode: bridge
     app:
         build: .
         container_name: rentx
@@ -20,7 +20,9 @@ services:
             - 3000:3000
         volumes:
             - .:/usr/app
-        network_mode: host
+        links:
+            - database_ignite
+        network_mode: bridge
 
 volumes:
     pgdata: 
