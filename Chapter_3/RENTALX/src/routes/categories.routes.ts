@@ -1,14 +1,17 @@
 import { Router } from "express";
-// import CategoriesRepository from "../modules/cars/repositories/implementations/CategoriesRepository";
-import  createCategoryController  from "../modules/cars/useCases/createCategory";
-import {  } from "../modules/cars/useCases/createCategory/CreateCategoryUseCase";
 import multer from "multer";
+// import CategoriesRepository from "../modules/cars/repositories/implementations/CategoriesRepository";
 
+import {  } from "../modules/cars/useCases/createCategory/CreateCategoryUseCase";
+
+
+import { CreateCategoryController } from "../modules/cars/useCases/createCategory/CreateCategoryController";
 import listCategoriesController from "../modules/cars/useCases/listCategories";
 import  importCategoryController  from "../modules/cars/useCases/importCategory";
 
 const categoriesRoutes = Router();
 
+const createCategoryController = new CreateCategoryController();
 /*
     pegar os arquivos do upload, salvar dentro de uma pasta temporária, fazer toda leitura e tudo que precisar, tipo 
     salvar no banco de dados, e ai fazer a deleção dentro da pasta temporária
@@ -18,9 +21,7 @@ const upload = multer({
     dest: "./temp",
 });
 
-categoriesRoutes.post("/", (request, response) => {
-    return createCategoryController().handle(request, response);
-});
+categoriesRoutes.post("/", createCategoryController.handle);
 
 categoriesRoutes.get("/", (request, response) => {
     return listCategoriesController().handle(request, response);
