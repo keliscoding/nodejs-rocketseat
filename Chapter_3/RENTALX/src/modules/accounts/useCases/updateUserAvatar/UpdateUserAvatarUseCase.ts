@@ -17,24 +17,22 @@ interface IRequest {
 
 @injectable()
 class UpdateUserAvatarUseCase {
-
     private repository: IUsersRepository;
 
     constructor(
-        @inject("users")
-        repository: IUsersRepository) {
-            this.repository = repository;
+        @inject("UsersRepository")
+        repository: IUsersRepository
+    ) {
+        this.repository = repository;
     }
 
-    async execute({avatar_file, user_id}: IRequest) {
-
+    async execute({ avatar_file, user_id }: IRequest) {
         const user = await this.repository.findUserById(user_id);
 
         user.avatar = avatar_file;
 
         await this.repository.create(user);
- 
-    }   
+    }
 }
 
 export { UpdateUserAvatarUseCase };
