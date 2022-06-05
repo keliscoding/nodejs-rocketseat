@@ -20,6 +20,7 @@ services:
             - 3000:3000
         volumes:
             - .:/usr/app
+            - /usr/src/app/node_modules/
         links:
             - database_ignite
         network_mode: bridge
