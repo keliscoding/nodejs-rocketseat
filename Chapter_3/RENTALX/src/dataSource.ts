@@ -8,5 +8,5 @@ export const AppDataSource = new DataSource({
     password: "ignite",
     database: "rentx",
     migrations: ["./src/database/migrations/*.ts"],
-    entities: [__dirname + "/modules/cars/entities/*.ts"]
+    entities: [__dirname + "/modules/cars/entities/*.ts", __dirname + "/modules/accounts/entities/*.ts"]
 });
