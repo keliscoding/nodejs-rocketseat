@@ -1,7 +1,7 @@
-import { inject, injectable } from 'tsyringe';
-import { AppError } from '../../../../errors/AppError';
+import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
 
-import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
+import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IRequest {
     name: string;
@@ -13,7 +13,6 @@ interface IRequest {
     [x] - Alterar o retorno de erro
     [x] - Acessar o repositório
 */
-
 
 //Todo UseCase só vai ter um controller
 
