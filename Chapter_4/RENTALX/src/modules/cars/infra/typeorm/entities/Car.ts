@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryColumn, CreateDateColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryColumn, CreateDateColumn, JoinColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import Category from '@modules/cars/infra/typeorm/entities/Category';
 
 @Entity("cars")
 export class Car {
@@ -27,7 +28,11 @@ export class Car {
     @Column()
     brand: string;
 
-    // @ManyToOne()
+    @ManyToOne(() => Category)
+    @JoinColumn({name: "category_id"})
+    category: Category;
+
+    @Column()
     category_id: string;
 
     @CreateDateColumn()
@@ -36,8 +41,8 @@ export class Car {
     constructor() {
         if (!this.id) {
             this.id = uuid();
+            this.available = true;
+            this.created_at = new Date();
         }
-        this.available = true;
-        this.created_at = new Date();
     }
 }
