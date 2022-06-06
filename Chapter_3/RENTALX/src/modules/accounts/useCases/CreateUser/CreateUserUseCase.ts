@@ -3,7 +3,7 @@ import { hash } from "bcryptjs";
 
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import ICreateUsersDTO from "@modules/dtos/ICreateUsersDTO";
-import { AppError } from "@errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 
 
 
