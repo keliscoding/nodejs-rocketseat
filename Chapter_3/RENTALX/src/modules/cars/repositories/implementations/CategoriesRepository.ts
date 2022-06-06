@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
-import { AppDataSource } from "../../../../dataSource";
 
-import Category from "../../entities/Category";
+import { AppDataSource } from "../../../../dataSource";
+import Category from "@modules/cars/entities/Category";
 import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
 
 // singleton => criar apenas uma instancia de uma classe, que será uma instancia global

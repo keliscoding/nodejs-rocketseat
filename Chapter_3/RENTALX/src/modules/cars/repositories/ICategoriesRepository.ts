@@ -1,6 +1,8 @@
 import Category from "../entities/Category";
 
+
 //ctrl + . implementa o quick fix
+
 
 //DTO => Data transfer object, pegam o valor da rota e entregam ao repositório
 interface ICreateCategoryDTO {

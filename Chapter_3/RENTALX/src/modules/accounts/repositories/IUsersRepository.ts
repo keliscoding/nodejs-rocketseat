@@ -1,5 +1,7 @@
-import ICreateUsersDTO from '../../dtos/ICreateUsersDTO';
-import User from '../entities/User';
+import ICreateUsersDTO from "@modules/dtos/ICreateUsersDTO";
+import User from "../entities/User";
+
+
 
 interface IUsersRepository {
     create(data: ICreateUsersDTO): Promise<void>;

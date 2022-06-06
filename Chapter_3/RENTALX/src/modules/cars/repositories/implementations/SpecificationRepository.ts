@@ -1,7 +1,10 @@
 import { Repository } from "typeorm";
-import { AppDataSource } from "../../../../dataSource";
-import Specification from "../../entities/Specification";
-import { ICreateSpecificationDTO, ISpecificationsRepository } from "../ISpecificationsRepository";
+
+import Specification from "@modules/cars/entities/Specification";
+import { AppDataSource } from "dataSource";
+import { ISpecificationsRepository } from "../ISpecificationsRepository";
+
+
 
 export class SpecificationsRepository implements ISpecificationsRepository {
     private repository: Repository<Specification>;
