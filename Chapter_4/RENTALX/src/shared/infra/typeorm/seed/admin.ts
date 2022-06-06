@@ -17,6 +17,8 @@ async function create() {
         `
     )
 
+    await AppDataSource.destroy();
+
 }
 
 create().then(() => console.log("User admin created!"));
