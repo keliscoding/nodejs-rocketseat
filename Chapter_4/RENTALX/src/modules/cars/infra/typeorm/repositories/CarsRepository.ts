@@ -15,30 +15,30 @@ export class CarsRepository implements ICarsRepository {
         name?: string,
         brand?: string,
         category_id?: string
-    ): Promise<Car[]> {
-        const carsQuery = await this.repository
+        ): Promise<Car[]> {
+            const carsQuery = await this.repository
             .createQueryBuilder("c")
             .where("available = :available", { available: true });
-
-        if (brand) {
-            carsQuery.andWhere("c.brand = :brand", { brand: brand });
-        }
-
-        if (name) {
-            carsQuery.andWhere("c.name = :name", { name: name });
-        }
+            
+            if (brand) {
+                carsQuery.andWhere("c.brand = :brand", { brand: brand });
+            }
+            
+            if (name) {
+                carsQuery.andWhere("c.name = :name", { name: name });
+            }
 
         if (category_id) {
             carsQuery.andWhere("c.category_id = :category_id", {
                 category_id: category_id,
             });
         }
-
+        
         const cars = await carsQuery.getMany();
-
+        
         return cars;
     }
-
+    
     async create({
         name,
         description,
@@ -47,6 +47,7 @@ export class CarsRepository implements ICarsRepository {
         fine_amount,
         brand,
         category_id,
+        specifications,
     }: ICreateCarsDTO): Promise<Car> {
         const car = this.repository.create({
             name,
@@ -56,20 +57,31 @@ export class CarsRepository implements ICarsRepository {
             fine_amount,
             brand,
             category_id,
+            specifications,
         });
-
+        
         await this.repository.save(car);
-
+        
         return car;
     }
-
+    
     async findByPlate(license_plate: string): Promise<Car> {
         const car = await this.repository.findOne({
             where: {
                 license_plate: license_plate,
             },
         });
+        
+        return car;
+    }
 
+    async findById(id: string): Promise<Car> {
+        const car = await this.repository.findOne({
+            where: {
+                id: id
+            }
+        })
+    
         return car;
     }
 }

@@ -1,3 +1,5 @@
+import Specification from '@modules/cars/infra/typeorm/entities/Specification';
+
 export default interface ICreateCarsDTO {
     name: string;
     description: string;
@@ -6,4 +8,5 @@ export default interface ICreateCarsDTO {
     fine_amount: number;
     brand: string;
     category_id: string;
+    specifications?: Specification[];
 }
