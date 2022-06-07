@@ -1,9 +1,10 @@
 import { container } from "tsyringe";
 
+import "@shared/container/providers/"
+
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
-
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 import CategoriesRepository from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
 import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationRepository";
@@ -13,6 +14,7 @@ import { ICarsImagesRepository } from "@modules/cars/repositories/ICarsImagesRep
 import { CarsImagesRepository } from "@modules/cars/infra/typeorm/repositories/CarsImagesRepository";
 import { IRentalRepository } from '@modules/rentals/repositories/IRentalRepository';
 import { RentalRepository } from "@modules/rentals/infra/typeorm/repositories/RentalRepository";
+
 
 // ICategoriesRepository =>
 container.registerSingleton<ICategoriesRepository>(

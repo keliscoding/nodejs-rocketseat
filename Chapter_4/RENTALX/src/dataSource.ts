@@ -11,5 +11,6 @@ export const AppDataSource = new DataSource({
     entities: [
         __dirname + "/modules/cars/infra/typeorm/entities/*.ts",
         __dirname + "/modules/accounts/infra/typeorm/entities/*.ts",
-    ]
+        __dirname + "/modules/rentals/infra/typeorm/entities/*.ts",
+    ],
 });
