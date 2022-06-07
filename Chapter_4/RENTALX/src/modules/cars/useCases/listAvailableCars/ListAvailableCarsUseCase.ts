@@ -1,17 +1,18 @@
 import { inject, injectable } from "tsyringe";
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
+import { AppError } from '../../../../shared/errors/AppError';
 
 interface IRequest {
-    name?: string;
-    brand?: string;
     category_id?: string;
+    brand?: string;
+    name?: string;
 }
 
 @injectable()
-class ListCarsUseCase {
-    private repository: ICarsRepository
-    
+class ListAvailableCarsUseCase {
+    private repository: ICarsRepository;
+
     constructor(
         @inject("CarsRepository")
         repository: ICarsRepository
@@ -19,16 +20,16 @@ class ListCarsUseCase {
         this.repository = repository;
     }
 
-    async execute({name, brand, category_id}: IRequest): Promise<Car[]> {
-        
+    async execute({ brand, category_id, name }: IRequest): Promise<Car[]> {
 
         const cars = await this.repository.findAvailable(
+            name,
             brand,
             category_id,
-            name
         );
+
         return cars;
     }
 }
 
-export { ListCarsUseCase };
+export { ListAvailableCarsUseCase };
