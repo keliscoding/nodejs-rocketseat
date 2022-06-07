@@ -1,12 +1,10 @@
 import { inject, injectable } from 'tsyringe';
-import dayjs from 'dayjs';
-import utc from "dayjs/plugin/utc";
 
 import { IRentalRepository } from "@modules/rentals/repositories/IRentalRepository";
 import { AppError } from '../../../../shared/errors/AppError';
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental';
+import { IDateProvider } from '@shared/container/providers/DayjsProvider/IDateProvider';
 
-dayjs.extend(utc);
 
 interface IRequest {
     user_id: string;
@@ -18,8 +16,10 @@ interface IRequest {
 class CreateRentalUseCase {
 
     constructor(@inject("RentalRepository")
-        private createRentalRepository: IRentalRepository
-    ) {}
+        private createRentalRepository: IRentalRepository,
+        private dateProvider: IDateProvider
+    ) {   
+    }
 
     async execute({
         user_id,
@@ -45,17 +45,12 @@ class CreateRentalUseCase {
 
         //O aluguel deve ter a duração minima de 24 horas
 
-        const expectedReturnDateFormat = dayjs(expected_return_date)
-            .utc()
-            .local()
-            .format();
+        const dateNow = this.dateProvider.dateNow();
 
-        const dateNow = dayjs()
-            .utc()
-            .local()
-            .format();
-
-        const compare = dayjs(expectedReturnDateFormat).diff(dateNow, "hours")
+        const compare = this.dateProvider.compareInHours(
+            dateNow,
+            expected_return_date
+        );
 
         if (compare <= minimumHours) {
             throw new AppError('Rent time needs to be equal or more than 24 hours')
