@@ -1,7 +1,12 @@
 import { inject, injectable } from 'tsyringe';
+import dayjs from 'dayjs';
+import utc from "dayjs/plugin/utc";
+
 import { IRentalRepository } from "@modules/rentals/repositories/IRentalRepository";
 import { AppError } from '../../../../shared/errors/AppError';
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental';
+
+dayjs.extend(utc);
 
 interface IRequest {
     user_id: string;
@@ -21,6 +26,8 @@ class CreateRentalUseCase {
         car_id,
         expected_return_date
     }: IRequest): Promise<Rental> {
+        const minimumHours = 24;
+
         //Não deve ser possível cadastrar um novo aluguel caso já exista um em aberto para o mesmo carro
         const carUnavailable = await this.createRentalRepository.findOpenRentalByCar(car_id);
 
@@ -38,11 +45,27 @@ class CreateRentalUseCase {
 
         //O aluguel deve ter a duração minima de 24 horas
 
-        const rental = await this.createRentalRepository.create({
-            user_id,
-            car_id,
-            expected_return_date
-        })
+        const expectedReturnDateFormat = dayjs(expected_return_date)
+            .utc()
+            .local()
+            .format();
+
+        const dateNow = dayjs()
+            .utc()
+            .local()
+            .format();
+
+        const compare = dayjs(expectedReturnDateFormat).diff(dateNow, "hours")
+
+        if (compare <= minimumHours) {
+            throw new AppError('Rent time needs to be equal or more than 24 hours')
+        }
+
+            const rental = await this.createRentalRepository.create({
+                user_id,
+                car_id,
+                expected_return_date,
+            });
 
         return rental;
     }
