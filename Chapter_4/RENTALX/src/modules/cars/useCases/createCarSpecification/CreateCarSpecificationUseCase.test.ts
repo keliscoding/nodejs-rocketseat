@@ -44,7 +44,7 @@ describe("Create car specification", () => {
 
         const specifications = await createCarSpecificationUseCase.execute({
             car_id: car.id,
-            specification_id: specifications_ids,
+            specifications_id: specifications_ids,
         });
 
         expect(specifications).toHaveProperty("specifications");
@@ -54,11 +54,11 @@ describe("Create car specification", () => {
     it("should not be able to add a new specification to a non-existent car", async () => {
         expect(async () => {
             const car_id = "1234";
-            const specification_id = ["54321"];
+            const specifications_id = ["54321"];
 
             await createCarSpecificationUseCase.execute({
                 car_id,
-                specification_id,
+                specifications_id,
             });
         }).rejects.toBeInstanceOf(AppError);
     });
