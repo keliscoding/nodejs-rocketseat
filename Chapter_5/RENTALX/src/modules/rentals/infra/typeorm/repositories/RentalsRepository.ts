@@ -7,7 +7,7 @@ import {
 import { Rental } from "../entities/Rental";
 import { AppDataSource } from "@src/dataSource";
 
-class RentalRepository implements IRentalRepository {
+class RentalsRepository implements IRentalRepository {
     
     private repository: Repository<Rental>;
 
@@ -48,4 +48,4 @@ class RentalRepository implements IRentalRepository {
     }
 }
 
-export { RentalRepository };
+export { RentalsRepository };
