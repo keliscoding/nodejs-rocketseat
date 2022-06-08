@@ -42,9 +42,9 @@ export default class CategoriesRepository implements ICategoriesRepository {
     }
 
     async findByName(name: string): Promise<Category> {
-        const categories = await this.repository.findOneBy({
-            name
-        })
+        const categories = await this.repository.findOne({ where: {
+            name: name
+        }})
 
         return categories;
     }
