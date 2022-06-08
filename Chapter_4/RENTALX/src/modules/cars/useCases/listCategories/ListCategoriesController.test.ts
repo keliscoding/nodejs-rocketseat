@@ -1,14 +1,12 @@
 import request from "supertest";
 import { hash } from "bcryptjs";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 import { app } from "@shared/infra/http/app";
-import { AppDataSource } from '@src/dataSource';
+import { AppDataSource } from "@src/dataSource";
 
-
-describe("Create Category Controller", () => {
-
-    beforeAll( async () => {
+describe("List Categories Controller", () => {
+    beforeAll(async () => {
         await AppDataSource.initialize();
 
         await AppDataSource.runMigrations();
@@ -21,35 +19,15 @@ describe("Create Category Controller", () => {
         values('${id}','admin','admin@admin.com','${password}', true , 'now()', 'XXXXXXXX')
         `
         );
-
-    })
+    });
 
     afterAll(async () => {
         await AppDataSource.dropDatabase();
         await AppDataSource.destroy();
+        
     });
 
     it("should be able to create a new category", async () => {
-        const responseToken = await request(app).post("/sessions").send({
-            email: "admin@admin.com",
-            password: "admin"
-        })
-
-        const { token } = responseToken.body;
-
-        const response = await request(app).post("/categories").send({
-            name: "Category_Supertest",
-            description: "Supertest_category_description",
-        }).set(
-            {
-                Authorization: `Bearer ${token}`
-            }
-        )
-
-        expect(response.status).toBe(201);
-    });
-
-    it("should not be able to create a new category if name already taken", async () => {
         const responseToken = await request(app).post("/sessions").send({
             email: "admin@admin.com",
             password: "admin",
@@ -57,7 +35,7 @@ describe("Create Category Controller", () => {
 
         const { token } = responseToken.body;
 
-        const response = await request(app)
+        await request(app)
             .post("/categories")
             .send({
                 name: "Category_Supertest",
@@ -67,8 +45,11 @@ describe("Create Category Controller", () => {
                 Authorization: `Bearer ${token}`,
             });
 
-        expect(response.status).toBe(400);
+        const response = await request(app).get('/categories')
+
+        expect(response.status).toBe(200);
+        expect(response.body.length).toBe(1);
+        expect(response.body[0]).toHaveProperty("id");
     });
+
 });
-
-
