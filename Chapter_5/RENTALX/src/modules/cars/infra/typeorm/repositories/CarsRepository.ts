@@ -68,21 +68,15 @@ export class CarsRepository implements ICarsRepository {
     }
 
     async findByPlate(license_plate: string): Promise<Car> {
-        const car = await this.repository.findOne({
-            where: {
-                license_plate: license_plate,
-            },
+        const car = await this.repository.findOneBy({
+            license_plate,
         });
 
         return car;
     }
 
     async findById(id: string): Promise<Car> {
-        const car = await this.repository.findOne({
-            where: {
-                id: id,
-            },
-        });
+        const car = await this.repository.findOneBy({ id });
 
         return car;
     }
@@ -94,6 +88,6 @@ export class CarsRepository implements ICarsRepository {
             .set({ available })
             .where("id = :id")
             .setParameters({ id })
-            .execute()
+            .execute();
     }
 }
