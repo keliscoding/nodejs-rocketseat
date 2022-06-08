@@ -65,7 +65,7 @@ class RentalsRepository implements IRentalRepository {
         
         const rentals = await this.repository.findBy({
             user_id: id
-        });
+        })
 
         return rentals;
     }

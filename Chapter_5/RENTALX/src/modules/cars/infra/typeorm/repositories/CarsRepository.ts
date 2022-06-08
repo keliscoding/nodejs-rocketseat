@@ -78,15 +78,11 @@ export class CarsRepository implements ICarsRepository {
     }
 
     async findById(id: string): Promise<Car> {
-<<<<<<< HEAD
-=======
         const car = await this.repository.findOne({
             where: {
                 id: id,
             },
         });
-
->>>>>>> parent of d28dce5 (changing findOne method to findOneBy)
         return car;
     }
 
