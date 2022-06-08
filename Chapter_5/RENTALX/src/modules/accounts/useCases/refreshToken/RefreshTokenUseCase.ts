@@ -2,11 +2,10 @@ import { inject, injectable } from "tsyringe";
 import { sign, verify } from "jsonwebtoken";
 import { IUsersTokenRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
 import auth from "@config/auth";
-import { UsersTokenRepository } from "@modules/accounts/infra/typeorm/repositories/UsersTokenRepository";
 import { AppError } from "@shared/errors/AppError";
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
 
-interface IPayload {
+export interface IPayload {
     sub: string;
     //vem dentro do payload
     email: string;
@@ -38,10 +37,12 @@ class RefreshTokenUseCase {
         //cria-se uma interface pra pega-lo
         const user_id = sub;
 
-        const userToken = await this.tokenRepository.findByUserId(
+        const userToken = await this.tokenRepository.findByUserIdAndRefreshToken(
             user_id,
             token
         );
+
+        console.log(userToken);
 
         if (!userToken) {
             throw new AppError("Refresh Token Error!");
