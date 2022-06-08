@@ -28,6 +28,7 @@ class DevolutionRentalUseCase {
         const rental = await this.rentalsRepository.findById(id);
         const car = await this.carsRepository.findById(rental.car_id);
 
+        console.log(car)
         if (!rental) {
             throw new AppError("Rental does not exist.");
         }
