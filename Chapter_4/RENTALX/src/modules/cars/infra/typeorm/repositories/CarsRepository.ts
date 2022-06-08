@@ -1,7 +1,7 @@
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import ICreateCarsDTO from "@modules/dtos/ICreateCarsDTO";
 import { Car } from "../entities/Car";
-import { AppDataSource } from "../../../../../dataSource";
+import { AppDataSource } from "@src/dataSource";
 import { Repository } from "typeorm";
 
 export class CarsRepository implements ICarsRepository {

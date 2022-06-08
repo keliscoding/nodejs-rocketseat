@@ -5,7 +5,7 @@ import {
     IRentalRepository,
 } from "@modules/rentals/repositories/IRentalRepository";
 import { Rental } from "../entities/Rental";
-import { AppDataSource } from "../../../../../dataSource";
+import { AppDataSource } from "@src/dataSource";
 
 class RentalRepository implements IRentalRepository {
     
