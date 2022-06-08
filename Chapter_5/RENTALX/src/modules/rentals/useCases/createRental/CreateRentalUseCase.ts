@@ -35,6 +35,7 @@ class CreateRentalUseCase {
         const carUnavailable =
             await this.createRentalRepository.findOpenRentalByCar(car_id);
 
+
         if (carUnavailable) {
             throw new AppError("Car is unavailable.");
         }

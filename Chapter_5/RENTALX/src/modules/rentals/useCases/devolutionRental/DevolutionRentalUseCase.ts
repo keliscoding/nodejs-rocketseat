@@ -18,7 +18,7 @@ class DevolutionRentalUseCase {
         private rentalsRepository: IRentalRepository,
         @inject("CarsRepository")
         private carsRepository: ICarsRepository,
-        @inject("DayjsDateProvider")
+        @inject("DateProvider")
         private dateProvider: IDateProvider
     ) {}
 
@@ -26,9 +26,9 @@ class DevolutionRentalUseCase {
         const minimum_daily = 1;
 
         const rental = await this.rentalsRepository.findById(id);
-        const car = await this.carsRepository.findById(id);
+        const car = await this.carsRepository.findById(rental.car_id);
 
-        if (rental) {
+        if (!rental) {
             throw new AppError("Rental does not exist.");
         }
 
