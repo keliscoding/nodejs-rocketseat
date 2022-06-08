@@ -61,11 +61,15 @@ class RentalsRepository implements IRentalRepository {
         return rental;
     }
 
-    async findByUserId(id: string): Promise<Rental[]> {
+    async findByUserId(user_id: string): Promise<Rental[]> {
         
-        const rentals = await this.repository.findBy({
-            user_id: id
-        })
+        const rentals = await this.repository.find(
+           { 
+            where: { user_id },
+            //nome do relacionamento
+            relations: ["car"]
+            }
+        )
 
         return rentals;
     }
