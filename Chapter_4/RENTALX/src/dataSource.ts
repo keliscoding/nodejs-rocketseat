@@ -6,8 +6,8 @@ export const AppDataSource = new DataSource({
     port: 5432,
     username: "docker",
     password: "ignite",
-    database: "rentx",
-    migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
+    database: process.env.NODE_ENV === "test" ? "rentx_test" : "rentx",
+    migrations: [__dirname + "/shared/infra/typeorm/migrations/*.ts"],
     entities: [
         __dirname + "/modules/cars/infra/typeorm/entities/*.ts",
         __dirname + "/modules/accounts/infra/typeorm/entities/*.ts",
