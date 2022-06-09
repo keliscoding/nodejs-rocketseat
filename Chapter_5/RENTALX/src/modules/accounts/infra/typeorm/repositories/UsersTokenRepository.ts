@@ -10,6 +10,11 @@ class UsersTokenRepository implements IUsersTokenRepository {
     constructor() {
         this.repository = AppDataSource.getRepository(UserTokens);
     }
+
+    async findByRefreshToken(refresh_token: string): Promise<UserTokens> {
+        const usersToken = await this.repository.findOneBy({refresh_token});
+        return usersToken;
+    }
     
 
     async findByUserIdAndRefreshToken(
