@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { v4 as uuid } from 'uuid';
+import { resolve } from "path";
 
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokenRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
@@ -27,10 +28,12 @@ class SendForgotPasswordMailUseCase {
         
         const user = await this.userRepository.findByEmail(email);
 
+        
         if(!user) {
             throw new AppError("User does not exists.")
         }
-
+        
+        const templatePath = resolve(__dirname, "..", "..", "views", "emails", "forgotPassword.hbs")
 
         //cria um token com uuid pra ter uma url menor
         const token = uuid();
@@ -47,7 +50,13 @@ class SendForgotPasswordMailUseCase {
             }
         )
 
-        await this.mailProvider.sendMail(email, "Recuperação de Senha", `O link para o reset é ${token}`);
+        // como não temos front-end, vamos passar o link pelo próprio back
+        const variables = {
+            name: user.name,
+            link: `${process.env.FORGOT_MAIL_URL}${token}`
+        }
+
+        await this.mailProvider.sendMail(email, "Recuperação de Senha", variables, templatePath);
 
     }
 }
