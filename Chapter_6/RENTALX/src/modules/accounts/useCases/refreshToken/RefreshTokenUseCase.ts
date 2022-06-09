@@ -3,12 +3,17 @@ import { sign, verify } from "jsonwebtoken";
 import { IUsersTokenRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
 import auth from "@config/auth";
 import { AppError } from "@shared/errors/AppError";
-import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 
 export interface IPayload {
     sub: string;
     //vem dentro do payload
     email: string;
+}
+
+interface ITokenResponse {
+    token: string,
+    refresh_token: string
 }
 
 @injectable()
@@ -20,29 +25,29 @@ class RefreshTokenUseCase {
         private dateProviderRepository: IDateProvider
     ) {}
 
-    async execute(token: string) {
-
+    async execute(token: string): Promise<ITokenResponse> {
         const {
             secret_refresh_token,
             expires_in_refresh_token,
             expires_refresh_token_days,
+            expires_in_token,
+            secret_token,
         } = auth;
 
         //precisa fazer um decode da verificação
         const { email, sub } = verify(
             token,
-            auth.secret_refresh_token
+            secret_refresh_token
         ) as IPayload;
         //não mostra pra gente que há um sub dentro do decode
         //cria-se uma interface pra pega-lo
         const user_id = sub;
 
-        const userToken = await this.tokenRepository.findByUserIdAndRefreshToken(
-            user_id,
-            token
-        );
-
-        console.log(userToken);
+        const userToken =
+            await this.tokenRepository.findByUserIdAndRefreshToken(
+                user_id,
+                token
+            );
 
         if (!userToken) {
             throw new AppError("Refresh Token Error!");
@@ -52,9 +57,9 @@ class RefreshTokenUseCase {
 
         await this.tokenRepository.deleteById(userToken.id);
 
-         const expires_date = this.dateProviderRepository.addDays(
-             expires_refresh_token_days
-         );
+        const expires_date = this.dateProviderRepository.addDays(
+            expires_refresh_token_days
+        );
 
         const refresh_token = sign({ email }, secret_refresh_token, {
             subject: sub, // sub = user.id
@@ -67,7 +72,15 @@ class RefreshTokenUseCase {
             user_id,
         });
 
-        return refresh_token;
+        const newToken = sign({}, secret_token, {
+            subject: user_id,
+            expiresIn: expires_in_token,
+        });
+
+        return {
+            token: newToken,
+            refresh_token
+        };
     }
 }
 
